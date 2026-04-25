@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mayor Eric Dial | Official Digital Office | Tyrone, Georgia</title>
+
+  <!-- Playfair Display: authoritative serif for headlines -->
+  <!-- Outfit: precise, modern, slightly geometric body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       DESIGN TOKENS — Tyrone Civic · Light Luxury
+    ═══════════════════════════════════════════════ */
+    :root {
+      /* Palette */
+      --sky:          #ADD8E6;   /* Light Sky Blue — primary accent */
+      --sky-deep:     #7eb8cf;   /* Deeper sky for hover states */
+      --sky-pale:     #e8f5fa;   /* Very pale sky for tinted backgrounds */
+      --sky-wash:     #f4f9fb;   /* Barely-there sky wash */
+      --slate:        #708090;   /* Slate Gray — body text */
+      --slate-dark:   #3d4a55;   /* Dark slate — headings */
+      --slate-light:  #a0adb8;   /* Light slate — captions, labels */
+      --slate-rule:   #d4dce3;   /* Thin rule / border color */
+      --white:        #ffffff;
+      --off-white:    #fafbfc;   /* Section background */
+      --ink:          #1a2028;   /* Near-black for hero text */
+
+      /* Typography */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Outfit', system-ui, sans-serif;
+
+      /* Spacing rhythm */
+      --section-pad:  7rem;
+
+      /* Motion */
+      --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ── RESET & BASE ───────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--slate);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── SELECTION ──────────────────────────────── */
+    ::selection { background: var(--sky); color: var(--ink); }
+
+    /* ── DISPLAY FONT ───────────────────────────── */
+    .f-display { font-family: var(--font-display); }
+
+    /* ─────────────────────────────────────────────
+       NAVIGATION — Fixed, ultra-minimal
+    ───────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.5s var(--ease-out),
+                  padding 0.4s var(--ease-out),
+                  border-bottom-color 0.5s ease;
+      border-bottom: 1px solid transparent;
+      background: transparent;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.97);
+      border-bottom-color: var(--slate-rule);
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Logo mark */
+    .nav-logo-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      transition: color 0.4s ease;
+      line-height: 1.2;
+    }
+    .nav-logo-sub {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(173,216,230,0.7);
+      margin-top: 2px;
+      transition: color 0.4s ease;
+    }
+    #navbar.scrolled .nav-logo-name { color: var(--ink); }
+    #navbar.scrolled .nav-logo-sub  { color: var(--slate-light); }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-link {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--sky);
+      transition: width 0.3s var(--ease-out);
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { width: 100%; }
+    #navbar.scrolled .nav-link { color: var(--slate-light); }
+    #navbar.scrolled .nav-link:hover { color: var(--slate-dark); }
+    #navbar.scrolled .nav-link::after { background: var(--sky-deep); }
+
+    /* Support button */
+    .btn-nav-support {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--sky);
+      border: none;
+      padding: 0.6rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-nav-support:hover {
+      background: var(--sky-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(126,184,207,0.4);
+    }
+    .btn-nav-support:active { transform: translateY(0); }
+
+    /* Mobile menu btn */
+    #menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    #menu-btn span {
+      display: block;
+      width: 22px; height: 1px;
+      background: white;
+      transition: background 0.3s ease;
+    }
+    #navbar.scrolled #menu-btn span { background: var(--ink); }
+
+    @media (max-width: 1023px) {
+      #navbar { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      #menu-btn { display: flex; }
+    }
+
+    /* Mobile drawer */
+    #mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 1.5rem 1.5rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 0.5rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #navbar.scrolled #mobile-menu { border-top-color: var(--slate-rule); }
+    .mobile-link {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+    #navbar.scrolled .mobile-link { color: var(--slate); }
+
+    /* ─────────────────────────────────────────────
+       HERO — Sparse, atmospheric, full-bleed
+    ───────────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      background-color: var(--ink);
+      /* Subtle crosshatch of sky lines — purely CSS, no images */
+      background-image:
+        linear-gradient(rgba(173,216,230,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(173,216,230,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Large circle accent — top right */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      border: 1px solid rgba(173,216,230,0.1);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      border: 1px solid rgba(173,216,230,0.07);
+      pointer-events: none;
+    }
+
+    /* Small corner accent — bottom left */
+    .hero-corner {
+      position: absolute;
+      bottom: 3rem; left: 3rem;
+      width: 140px; height: 140px;
+      border-left: 1px solid rgba(173,216,230,0.12);
+      border-bottom: 1px solid rgba(173,216,230,0.12);
+      pointer-events: none;
+    }
+
+    /* Horizontal rule divider at bottom of hero */
+    .hero-bottom-rule {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--slate-rule), transparent);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 9rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding: 8rem 1.5rem 5rem;
+        gap: 3rem;
+      }
+    }
+
+    /* Live badge */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(173,216,230,0.7);
+      border: 1px solid rgba(173,216,230,0.18);
+      padding: 5px 12px 5px 8px;
+      border-radius: 100px;
+      margin-bottom: 2.5rem;
+    }
+    .live-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--sky);
+      box-shadow: 0 0 8px rgba(173,216,230,0.9);
+      animation: live-pulse 2.8s ease-in-out infinite;
+    }
+    @keyframes live-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Hero headline */
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      line-height: 1.1;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--sky);
+    }
+
+    /* Hero sub */
+    .hero-sub {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.15rem;
+      color: rgba(173,216,230,0.75);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* Hero body */
+    .hero-body {
+      font-weight: 300;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: rgba(200,212,224,0.72);
+      max-width: 420px;
+      margin-bottom: 2.75rem;
+    }
+
+    /* Hero CTA row */
+    #hero-cta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .hero-cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      height: 50px;
+      padding: 0 1.75rem;
+      white-space: nowrap;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.22s ease, color 0.22s ease;
+    }
+    @media (min-width: 640px) {
+      #hero-cta-row { flex-direction: row; align-items: stretch; }
+      .hero-cta-btn { flex: 1; height: auto; min-height: 50px; }
+    }
+    .btn-primary {
+      background: var(--sky);
+      color: var(--ink);
+      border: 1px solid var(--sky);
+    }
+    .btn-primary:hover {
+      background: var(--sky-deep);
+      border-color: var(--sky-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(126,184,207,0.35);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--sky);
+      border: 1px solid rgba(173,216,230,0.35);
+    }
+    .btn-secondary:hover {
+      background: rgba(173,216,230,0.06);
+      border-color: rgba(173,216,230,0.6);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .btn-outline-white {
+      background: transparent;
+      color: rgba(255,255,255,0.65);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-outline-white:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-1px);
+    }
+    .hero-cta-btn:active { transform: translateY(0) !important; }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-val {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.9rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-label {
+      font-weight: 300;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--slate-light);
+      margin-top: 5px;
+    }
+    .stat-pipe {
+      width: 1px; height: 32px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* Hero photo */
+    .hero-photo-frame {
+      background: rgba(173,216,230,0.04);
+      border: 1px solid rgba(173,216,230,0.18);
+      aspect-ratio: 3/4;
+      max-width: 340px;
+      width: 100%;
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Corner marks on photo frame */
+    .hero-photo-frame::before,
+    .hero-photo-frame::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      pointer-events: none;
+    }
+    .hero-photo-frame::before {
+      top: 12px; left: 12px;
+      border-top: 1px solid rgba(173,216,230,0.4);
+      border-left: 1px solid rgba(173,216,230,0.4);
+    }
+    .hero-photo-frame::after {
+      bottom: 12px; right: 12px;
+      border-bottom: 1px solid rgba(173,216,230,0.4);
+      border-right: 1px solid rgba(173,216,230,0.4);
+    }
+    .photo-name-plate {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(26,32,40,0.95), transparent);
+    }
+
+    /* ─────────────────────────────────────────────
+       ACTION BAR
+    ───────────────────────────────────────────── */
+    #action-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-rule);
+      padding: 0;
+    }
+    .action-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: flex;
+      align-items: stretch;
+    }
+    @media (max-width: 768px) {
+      .action-bar-inner { flex-direction: column; padding: 1rem 1.5rem; gap: 0.5rem; }
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 1.25rem 2.25rem;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate-dark);
+      text-decoration: none;
+      border-right: 1px solid var(--slate-rule);
+      transition: background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .action-btn:first-child { border-left: none; }
+    .action-btn:last-child { border-right: none; }
+    .action-btn svg {
+      width: 16px; height: 16px;
+      color: var(--sky-deep);
+      flex-shrink: 0;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .action-btn:hover {
+      background: var(--sky-wash);
+      color: var(--ink);
+    }
+    .action-btn:hover svg {
+      color: var(--ink);
+      transform: scale(1.1);
+    }
+    @media (max-width: 768px) {
+      .action-btn { border-right: none; border-bottom: 1px solid var(--slate-rule); padding: 0.9rem 0.5rem; }
+      .action-btn:last-child { border-bottom: none; }
+    }
+
+    /* ─────────────────────────────────────────────
+       SECTION — STRATEGIC VISION
+    ───────────────────────────────────────────── */
+    #plan {
+      background: var(--off-white);
+      padding: var(--section-pad) 3rem;
+    }
+    @media (max-width: 768px) { #plan { padding: 5rem 1.5rem; } }
+
+    .section-eyebrow {
+      font-weight: 300;
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--sky-deep);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--slate-dark);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .section-title em { font-style: italic; color: var(--ink); }
+    .section-intro {
+      font-weight: 300;
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--slate-light);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .section-rule {
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--sky-deep);
+      margin: 1.25rem auto 0;
+    }
+
+    /* Plan cards */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 4rem;
+      border: 1px solid var(--slate-rule);
+      background: var(--slate-rule);
+    }
+    @media (max-width: 900px) { .plan-grid { grid-template-columns: 1fr; } }
+
+    .plan-card {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s ease;
+    }
+    .plan-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--sky);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s var(--ease-out);
+    }
+    .plan-card:hover { background: var(--sky-wash); }
+    .plan-card:hover::before { transform: scaleX(1); }
+
+    .card-pillar {
+      font-weight: 300;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sky-deep);
+      margin-bottom: 1.5rem;
+    }
+    .card-icon {
+      width: 42px; height: 42px;
+      border: 1px solid var(--slate-rule);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: var(--sky-pale);
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .plan-card:hover .card-icon {
+      border-color: var(--sky-deep);
+      background: rgba(173,216,230,0.2);
+    }
+    .card-icon svg { width: 18px; height: 18px; color: var(--sky-deep); }
+    .card-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.35rem;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    .card-body {
+      font-weight: 300;
+      font-size: 0.83rem;
+      line-height: 1.85;
+      color: var(--slate);
+    }
+
+    /* ─────────────────────────────────────────────
+       SECTION — ABOUT
+    ───────────────────────────────────────────── */
+    #about {
+      background: var(--ink);
+      padding: var(--section-pad) 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) { #about { padding: 5rem 1.5rem; } }
+
+    /* Subtle grid overlay on about */
+    #about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(173,216,230,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(173,216,230,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .about-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    .about-photo-frame {
+      border: 1px solid rgba(173,216,230,0.18);
+      aspect-ratio: 3/4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: rgba(173,216,230,0.03);
+    }
+    .about-name-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .about-eyebrow {
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(173,216,230,0.6);
+      margin-bottom: 1.5rem;
+    }
+    .about-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2rem, 3vw, 2.75rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 2.25rem;
+    }
+    .about-title em { font-style: italic; color: var(--sky); }
+    .about-body { font-weight: 300; font-size: 0.875rem; line-height: 1.95; color: rgba(200,212,224,0.75); }
+    .about-body p + p { margin-top: 1.25rem; }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .about-tag {
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(173,216,230,0.65);
+      border: 1px solid rgba(173,216,230,0.18);
+      padding: 4px 12px;
+    }
+    .about-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+    .btn-light {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: var(--sky);
+      color: var(--ink);
+      border: 1px solid var(--sky);
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+    }
+    .btn-light:hover {
+      background: var(--sky-deep);
+      border-color: var(--sky-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(126,184,207,0.35);
+    }
+    .btn-ghost-white {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      transition: color 0.22s ease, border-color 0.22s ease, transform 0.18s ease;
+    }
+    .btn-ghost-white:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ─────────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────────── */
+    #contact {
+      background: var(--white);
+      padding: var(--section-pad) 3rem;
+    }
+    @media (max-width: 768px) { #contact { padding: 5rem 1.5rem; } }
+
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .form-card {
+      border: 1px solid var(--slate-rule);
+      padding: 3rem;
+      background: var(--white);
+      margin-top: 3rem;
+    }
+    @media (max-width: 640px) { .form-card { padding: 2rem 1.25rem; } }
+
+    label {
+      display: block;
+      font-weight: 400;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--slate-dark);
+      margin-bottom: 0.5rem;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--off-white);
+      border: 1px solid var(--slate-rule);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.875rem;
+      padding: 0.8rem 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      appearance: none;
+      border-radius: 0;
+    }
+    .form-input:focus {
+      border-color: var(--sky-deep);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(126,184,207,0.12);
+    }
+    .form-input::placeholder { color: var(--slate-light); font-weight: 300; }
+
+    .btn-form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.22s ease, transform 0.18s ease;
+      border-radius: 0;
+    }
+    .btn-form-submit:hover {
+      background: var(--slate-dark);
+      transform: translateY(-1px);
+    }
+    .btn-form-submit:active { transform: translateY(0); }
+
+    /* ─────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────── */
+    footer {
+      background: var(--off-white);
+      border-top: 1px solid var(--slate-rule);
+      padding: 3rem;
+    }
+    @media (max-width: 768px) { footer { padding: 2.5rem 1.5rem; } }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--slate-rule);
+    }
+    .footer-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+    .footer-sub {
+      font-weight: 300;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--slate-light);
+      margin-top: 3px;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .footer-link {
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--slate-light);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: var(--slate-dark); }
+    .footer-support {
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sky-deep);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-support:hover { color: var(--ink); }
+    .footer-legal {
+      font-weight: 300;
+      font-size: 0.7rem;
+      color: var(--slate-light);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    /* ─────────────────────────────────────────────
+       FADE UP
+    ───────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─────────────────────────────────────────────
+       SCROLLBAR
+    ───────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: var(--slate-rule); border-radius: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <a href="#" style="text-decoration:none;">
+      <div class="nav-logo-name">Mayor Eric Dial</div>
+      <div class="nav-logo-sub">Official Digital Office · Tyrone, GA</div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#plan"    class="nav-link">Vision</a></li>
+      <li><a href="#about"   class="nav-link">About</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="#contact" class="nav-link">Get Involved</a></li>
+      <li>
+        <a href="#" class="btn-nav-support">
+          <svg xmlns="http://www.w3.org/2000/svg" style="width:13px;height:13px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+          </svg>
+          Support the Vision
+        </a>
+      </li>
+    </ul>
+
+    <button id="menu-btn" aria-label="Open menu">
+      <span></span><span></span><span style="width:14px;"></span>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu">
+      <a href="#plan"    class="mobile-link" onclick="closeMobileMenu()">Vision</a>
+      <a href="#about"   class="mobile-link" onclick="closeMobileMenu()">About</a>
+      <a href="#contact" class="mobile-link" onclick="closeMobileMenu()">Contact</a>
+      <a href="#contact" class="mobile-link" onclick="closeMobileMenu()">Get Involved</a>
+      <a href="#" class="btn-nav-support" style="align-self:flex-start;" onclick="closeMobileMenu()">★ Support the Vision</a>
+    </div>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-corner"></div>
+    <div class="hero-bottom-rule"></div>
+
+    <div class="hero-inner">
+
+      <!-- Left: Text -->
+      <div>
+        <div class="live-badge fade-up" style="transition-delay:0.05s">
+          <span class="live-dot"></span>
+          Official Digital Office
+        </div>
+
+        <h1 class="hero-headline fade-up" style="transition-delay:0.12s">
+          Excellence in<br/>
+          Every Acre:<br/>
+          The Official Digital<br/>
+          Office of Mayor<br/>
+          <em>Eric Dial</em>
+        </h1>
+
+        <p class="hero-sub fade-up" style="transition-delay:0.2s">
+          Tyrone, Georgia — Where Small-Town Charm<br/>Meets Exceptional Vision.
+        </p>
+
+        <p class="hero-body fade-up" style="transition-delay:0.26s">
+          From Shamrock Park to The Legacy Theatre, from Fabon Brown Park to the Tyrone Museum — Mayor Dial is leading this community with precision, care, and a deep commitment to the quality of life that defines Tyrone, Georgia.
+        </p>
+
+        <div class="fade-up" style="transition-delay:0.33s">
+          <div id="hero-cta-row">
+            <a href="#plan" class="hero-cta-btn btn-primary">See the Vision</a>
+            <a href="#"     class="hero-cta-btn btn-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;flex-shrink:0;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+              </svg>
+              Support the Vision
+            </a>
+            <a href="#about" class="hero-cta-btn btn-outline-white">Meet the Mayor</a>
+          </div>
+        </div>
+
+        <div class="hero-stats fade-up" style="transition-delay:0.42s">
+          <div>
+            <div class="stat-val">3</div>
+            <div class="stat-label">Pillars</div>
+          </div>
+          <div class="stat-pipe"></div>
+          <div>
+            <div class="stat-val">24/7</div>
+            <div class="stat-label">City Access</div>
+          </div>
+          <div class="stat-pipe"></div>
+          <div>
+            <div class="stat-val">∞</div>
+            <div class="stat-label">Commitment</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Photo -->
+      <div class="fade-up" style="transition-delay:0.18s">
+        <div class="hero-photo-frame">
+          <!-- ── REPLACE with:
+               <img src="images/mayor-eric-dial.jpg" alt="Mayor Eric Dial"
+                    style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+          ── -->
+          <div style="opacity:0.25; display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width:56px;height:56px;color:var(--sky);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+            <span style="font-size:0.6rem;letter-spacing:0.25em;color:var(--sky);text-transform:uppercase;">Official Photo</span>
+          </div>
+          <div class="photo-name-plate">
+            <div style="font-family:var(--font-display);font-size:1rem;color:white;font-weight:400;">Eric Dial</div>
+            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(173,216,230,0.65);margin-top:3px;">Mayor · Tyrone, Georgia</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════
+       ACTION BAR
+  ════════════════════════════════════════════ -->
+  <div id="action-bar">
+    <div class="action-bar-inner">
+      <a href="#" class="action-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+        </svg>
+        Pay Utilities
+      </a>
+      <a href="#" class="action-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+        Report a Pothole
+      </a>
+      <a href="#" class="action-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+        Public Records
+      </a>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════
+       STRATEGIC VISION
+  ════════════════════════════════════════════ -->
+  <section id="plan">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="text-center fade-up" style="max-width:600px;margin:0 auto 0;">
+        <p class="section-eyebrow">A Clear Agenda for Tyrone</p>
+        <h2 class="section-title">The <em>Strategic Vision</em></h2>
+        <span class="section-rule"></span>
+        <p class="section-intro" style="margin-top:1.25rem;">
+          Three carefully considered pillars — each one reflecting what the people of Tyrone value most: their parks, their culture, and the quiet efficiency of a city that simply works.
+        </p>
+      </div>
+
+      <div class="plan-grid fade-up" style="transition-delay:0.1s">
+
+        <!-- Card 1: Quality of Life -->
+        <div class="plan-card">
+          <p class="card-pillar">Pillar One</p>
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+            </svg>
+          </div>
+          <h3 class="card-title">Quality of Life</h3>
+          <p class="card-body">
+            Enhancing the scenic parks and green spaces that define Tyrone's character — from Shamrock Park to Fabon Brown Park. Mayor Dial believes that exceptional public spaces are not an amenity but a right, and is committed to ensuring Tyrone's outdoor environment remains among the finest in Fayette County.
+          </p>
+        </div>
+
+        <!-- Card 2: Cultural Excellence -->
+        <div class="plan-card">
+          <p class="card-pillar">Pillar Two</p>
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+            </svg>
+          </div>
+          <h3 class="card-title">Cultural Excellence</h3>
+          <p class="card-body">
+            Supporting the local institutions that give Tyrone its soul — The Legacy Theatre, the Tyrone Museum, and the arts and cultural programming that make this community more than just a place to live. Mayor Dial is committed to sustaining and growing the cultural infrastructure that sets Tyrone apart.
+          </p>
+        </div>
+
+        <!-- Card 3: Smart Infrastructure -->
+        <div class="plan-card">
+          <p class="card-pillar">Pillar Three</p>
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+            </svg>
+          </div>
+          <h3 class="card-title">Smart Infrastructure</h3>
+          <p class="card-body">
+            Modernizing city services with the technology and efficiency residents expect — without sacrificing the small-town charm that makes Tyrone irreplaceable. Digital city access, improved roads, streamlined permitting, and responsive government: progress that feels invisible because it simply works.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════
+       ABOUT
+  ════════════════════════════════════════════ -->
+  <section id="about">
+    <div class="about-inner">
+
+      <!-- Left: Photo + name card -->
+      <div class="fade-up">
+        <div class="about-photo-frame">
+          <!-- ── REPLACE with:
+               <img src="images/mayor-about.jpg" alt="Mayor Eric Dial"
+                    style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+          ── -->
+          <div style="opacity:0.25; display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width:56px;height:56px;color:var(--sky);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+            <span style="font-size:0.6rem;letter-spacing:0.25em;color:var(--sky);text-transform:uppercase;">Official Photo</span>
+          </div>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:6rem;background:linear-gradient(to top, rgba(26,32,40,0.9), transparent);"></div>
+        </div>
+
+        <div class="about-name-card">
+          <div style="width:28px;height:1px;background:var(--sky);margin-bottom:0.85rem;"></div>
+          <div style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(173,216,230,0.55);margin-bottom:0.35rem;">Mayor · Tyrone, Georgia</div>
+          <div style="font-family:var(--font-display);font-size:1.2rem;color:white;font-weight:400;">Eric Dial</div>
+        </div>
+      </div>
+
+      <!-- Right: Bio -->
+      <div class="fade-up" style="transition-delay:0.15s">
+        <p class="about-eyebrow">About Mayor Dial</p>
+        <h2 class="about-title">
+          Rooted in Tyrone.<br/>
+          <em>Dedicated to its Excellence.</em>
+        </h2>
+
+        <!-- ── EDIT: Replace with Mayor Dial's actual biography ── -->
+        <div class="about-body">
+          <p>Mayor Eric Dial is a committed public servant and proud resident of Tyrone, Georgia. His leadership is defined by the same qualities that define Tyrone itself: precision, care, and an uncompromising standard for the quality of life every resident deserves.</p>
+          <p>With a background in [insert field — e.g., public administration, business, civic leadership], Mayor Dial has devoted himself to the proposition that good government is not loud — it is effective. Under his stewardship, Tyrone's parks, cultural institutions, and city services have become benchmarks for communities across Fayette County.</p>
+          <p>From championing The Legacy Theatre and the Tyrone Museum to investing in Shamrock Park and Fabon Brown Park, Mayor Dial understands that a city's character is measured not in square miles but in the quality of its spaces, its institutions, and its governance.</p>
+          <p>He believes that Tyrone's most valuable resource is not any single park or building — it is the community itself. And he is committed to making sure city hall never takes that for granted.</p>
+        </div>
+
+        <div class="about-tags">
+          <span class="about-tag">Tyrone Resident</span>
+          <span class="about-tag">Civic Leader</span>
+          <span class="about-tag">Excellence in Governance</span>
+        </div>
+
+        <div class="about-actions">
+          <a href="#contact" class="btn-light">Get Involved</a>
+          <a href="#" class="btn-ghost-white">★ Support the Vision</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════
+       CONTACT
+  ════════════════════════════════════════════ -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="text-center fade-up">
+        <p class="section-eyebrow">We Are Listening</p>
+        <h2 class="section-title" style="margin-bottom:0;">Get in <em>Touch</em></h2>
+        <span class="section-rule" style="margin-top:1.25rem;"></span>
+        <p class="section-intro" style="margin-top:1.25rem;">
+          Whether you have a question about city services, a concern about your neighborhood, or an idea for making Tyrone even better — Mayor Dial's office is ready to hear from you.
+        </p>
+      </div>
+
+      <form
+        action="https://api.staticforms.dev/submit"
+        method="POST"
+        class="form-card fade-up"
+        style="transition-delay:0.1s"
+        id="contact-form"
+      >
+        <input type="hidden" name="apiKey" value="sf_135631e4fa88dff3c6a2eb58" />
+        <!-- ── EDIT: Replace with your Vercel deployment URL ── -->
+        <input type="hidden" name="redirectTo" value="https://YOUR-VERCEL-URL.vercel.app" />
+        <input type="hidden" name="subject" value="New Contact from Mayor Dial Official Site" />
+        <input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+          <div>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required placeholder="Jane Doe" class="form-input" />
+          </div>
+          <div>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="jane@email.com" class="form-input" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+          <label for="phone">Phone <span style="text-transform:none;letter-spacing:0;font-weight:300;font-size:0.75rem;color:var(--slate-light);">(optional)</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="(770) 555-0100" class="form-input" />
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" required placeholder="e.g., Shamrock Park improvement suggestion" class="form-input" />
+        </div>
+
+        <div style="margin-bottom:2rem;">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" required rows="5"
+                    placeholder="Share your thoughts, ideas, or concerns for Tyrone..."
+                    class="form-input" style="resize:none;"></textarea>
+        </div>
+
+        <button type="submit" class="btn-form-submit">Send Message</button>
+
+        <p style="font-size:0.68rem;font-weight:300;color:var(--slate-light);text-align:center;margin-top:1rem;">
+          Your information is kept confidential and used solely to respond to your inquiry.
+        </p>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-name">Mayor Eric Dial</div>
+          <div class="footer-sub">Official Digital Office · Tyrone, Georgia</div>
+        </div>
+        <ul class="footer-links">
+          <li><a href="#plan"    class="footer-link">Vision</a></li>
+          <li><a href="#about"   class="footer-link">About</a></li>
+          <li><a href="#contact" class="footer-link">Contact</a></li>
+          <li><a href="#" class="footer-support">★ Support the Vision</a></li>
+        </ul>
+      </div>
+      <div class="footer-legal">
+        <!-- ── EDIT: Campaign legal details ── -->
+        Paid for by the Eric Dial Campaign &nbsp;·&nbsp; [Campaign Treasurer Name], Treasurer<br/>
+        [Campaign Mailing Address] &nbsp;·&nbsp; Tyrone, Georgia &nbsp;·&nbsp; [Zip Code]<br/>
+        <span style="opacity:0.5;">&copy; 2025 Eric Dial Campaign. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════════ -->
+  <script>
+    // Nav scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Mobile menu
+    const menuBtn    = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+    // Fade-up observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Immediately reveal hero
+    window.addEventListener('load', () => {
+      document.querySelectorAll('#hero .fade-up').forEach(el => el.classList.add('visible'));
+    });
+  </script>
+
+</body>
+</html>

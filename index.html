@@ -935,6 +935,279 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ─────────────────────────────────────────────
+       QUICK ACTION GRID
+    ───────────────────────────────────────────── */
+    .ty-ql-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-rule);
+      padding: 5rem 2rem;
+    }
+    .ty-ql-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .ty-ql-eyebrow {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--sky-deep);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    /* Centered grid — 3 equal columns, cards fill evenly */
+    .ty-ql-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      justify-items: center;   /* centers card content horizontally */
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .ty-ql-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    }
+    /* Each card: flex column, everything centered */
+    .ty-ql-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;     /* horizontal centering of ALL children */
+      justify-content: flex-start;
+      text-align: center;
+      width: 100%;
+      padding: 2.5rem 2rem;
+      background: var(--white);
+      border: 1px solid var(--slate-rule);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s var(--ease-out),
+                  box-shadow 0.25s var(--ease-out),
+                  border-color 0.25s ease;
+    }
+    /* Top accent line slides in from left on hover */
+    .ty-ql-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--sky);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s var(--ease-out);
+    }
+    .ty-ql-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 48px rgba(26,32,40,0.1);
+      border-color: rgba(173,216,230,0.5);
+    }
+    .ty-ql-card:hover::before { transform: scaleX(1); }
+    /* Icon badge — gradient filled rounded square (matches Abbeville style) */
+    .ty-ql-icon-ring {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--ink) 0%, var(--sky-deep) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 6px 18px rgba(126,184,207,0.28);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .ty-ql-card:hover .ty-ql-icon-ring {
+      transform: scale(1.08);
+      box-shadow: 0 10px 28px rgba(126,184,207,0.42);
+    }
+    .ty-ql-lucide {
+      width: 22px; height: 22px;
+      color: #fff;
+      stroke-width: 1.75;
+    }
+    .ty-ql-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+    .ty-ql-sub {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.78rem;
+      color: var(--slate-light);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    /* CTA text at bottom of card */
+    .ty-ql-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sky-deep);
+      border-bottom: 1px solid var(--slate-rule);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      margin-top: auto;
+    }
+    .ty-ql-card:hover .ty-ql-cta {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .ty-ql-cta-arrow {
+      width: 12px; height: 12px;
+      transition: transform 0.2s ease;
+    }
+    .ty-ql-card:hover .ty-ql-cta-arrow { transform: translateX(3px); }
+
+    /* ─────────────────────────────────────────────
+       UPCOMING EVENTS
+    ───────────────────────────────────────────── */
+    .ty-ev-section {
+      background: var(--off-white);
+      padding: 6rem 2rem;
+    }
+    .ty-ev-inner {
+      max-width: 1120px;   /* matches max-w-7xl feel */
+      margin: 0 auto;
+    }
+    .ty-ev-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    /* 3-column grid, centered on page */
+    .ty-ev-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      justify-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .ty-ev-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .ty-ev-grid { grid-template-columns: 1fr; }
+    }
+    /* Event card: flex column, content centered */
+    .ty-ev-card {
+      background: var(--white);
+      border: 1px solid var(--slate-rule);
+      display: flex;
+      flex-direction: column;
+      align-items: center;   /* center everything horizontally */
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+    }
+    .ty-ev-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 44px rgba(26,32,40,0.09);
+    }
+    /* Date block — full-width, centered content */
+    .ty-ev-date {
+      width: 100%;
+      background: var(--ink);
+      padding: 1.5rem 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+    }
+    .ty-ev-month {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sky);
+    }
+    .ty-ev-day {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 3rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .ty-ev-year {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: rgba(173,216,230,0.5);
+    }
+    /* Thin sky-blue rule between date and body */
+    .ty-ev-divider {
+      width: 32px; height: 1px;
+      background: var(--sky);
+      margin: 1.25rem auto 0;
+      flex-shrink: 0;
+    }
+    .ty-ev-body {
+      padding: 1.25rem 1.5rem 0.75rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ty-ev-tag {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.58rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--sky-deep);
+      margin-bottom: 0.6rem;
+    }
+    .ty-ev-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+    .ty-ev-location {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 0.75rem;
+      color: var(--slate-light);
+      line-height: 1.5;
+    }
+    /* Learn More button — centered, equal padding all sides */
+    .ty-ev-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin: 1rem 1.5rem 1.5rem;
+      padding: 0.6rem 1.4rem;     /* equal vertical + horizontal padding */
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--slate-rule);
+      text-decoration: none;
+      transition: background 0.22s ease, border-color 0.22s ease,
+                  color 0.22s ease, transform 0.18s ease;
+      align-self: center;   /* centers button within flex column */
+    }
+    .ty-ev-btn:hover {
+      background: var(--sky-wash);
+      border-color: var(--sky-deep);
+      color: var(--sky-deep);
+      transform: translateY(-1px);
+    }
+
+    /* ─────────────────────────────────────────────
        SCROLLBAR
     ───────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 5px; }
@@ -1071,30 +1344,151 @@
 
 
   <!-- ════════════════════════════════════════════
-       ACTION BAR
+       QUICK ACTION GRID
   ════════════════════════════════════════════ -->
-  <div id="action-bar">
-    <div class="action-bar-inner">
-      <a href="#" class="action-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-        </svg>
-        Pay Utilities
-      </a>
-      <a href="#" class="action-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-        </svg>
-        Report a Pothole
-      </a>
-      <a href="#" class="action-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-        </svg>
-        Public Records
-      </a>
+  <section id="quick-links" class="ty-ql-section">
+    <div class="ty-ql-inner">
+
+      <!-- Section label -->
+      <p class="ty-ql-eyebrow fade-up">City Services</p>
+
+      <!-- 3-card centered grid -->
+      <div class="ty-ql-grid">
+
+        <!-- Card 1: Pay Utilities -->
+        <!-- ── EDIT: Replace href="#" with actual portal URL ── -->
+        <a href="#" target="_blank" rel="noopener" class="ty-ql-card fade-up" style="transition-delay:0.06s">
+          <div class="ty-ql-icon-ring">
+            <i data-lucide="credit-card" class="ty-ql-lucide"></i>
+          </div>
+          <span class="ty-ql-title">Pay Utilities</span>
+          <span class="ty-ql-sub">Online payment portal</span>
+          <span class="ty-ql-cta">
+            Access Portal
+            <i data-lucide="arrow-right" class="ty-ql-cta-arrow"></i>
+          </span>
+        </a>
+
+        <!-- Card 2: Permits -->
+        <a href="#" target="_blank" rel="noopener" class="ty-ql-card fade-up" style="transition-delay:0.13s">
+          <div class="ty-ql-icon-ring">
+            <i data-lucide="file-check-2" class="ty-ql-lucide"></i>
+          </div>
+          <span class="ty-ql-title">Permits</span>
+          <span class="ty-ql-sub">Building &amp; zoning requests</span>
+          <span class="ty-ql-cta">
+            Apply Now
+            <i data-lucide="arrow-right" class="ty-ql-cta-arrow"></i>
+          </span>
+        </a>
+
+        <!-- Card 3: Contact Mayor -->
+        <a href="#contact" class="ty-ql-card fade-up" style="transition-delay:0.20s">
+          <div class="ty-ql-icon-ring">
+            <i data-lucide="mail" class="ty-ql-lucide"></i>
+          </div>
+          <span class="ty-ql-title">Contact Mayor</span>
+          <span class="ty-ql-sub">Send a direct message</span>
+          <span class="ty-ql-cta">
+            Get in Touch
+            <i data-lucide="arrow-right" class="ty-ql-cta-arrow"></i>
+          </span>
+        </a>
+
+      </div>
     </div>
-  </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════
+       UPCOMING EVENTS
+  ════════════════════════════════════════════ -->
+  <section id="events" class="ty-ev-section">
+    <div class="ty-ev-inner">
+
+      <!-- Header — centered -->
+      <div class="ty-ev-header fade-up">
+        <p class="section-eyebrow" style="text-align:center;">What's Happening</p>
+        <h2 class="section-title" style="text-align:center; margin-bottom:0;">
+          Upcoming in <em>Tyrone</em>
+        </h2>
+        <span class="section-rule" style="margin:1.25rem auto 0;"></span>
+      </div>
+
+      <!-- 3-column event cards -->
+      <div class="ty-ev-grid">
+
+        <!-- ── EDIT: Replace with real Tyrone event details ── -->
+
+        <!-- Event 1 -->
+        <div class="ty-ev-card fade-up" style="transition-delay:0.08s">
+          <div class="ty-ev-date">
+            <span class="ty-ev-month">Jul</span>
+            <span class="ty-ev-day">10</span>
+            <span class="ty-ev-year">2025</span>
+          </div>
+          <div class="ty-ev-divider"></div>
+          <div class="ty-ev-body">
+            <p class="ty-ev-tag">Town Council</p>
+            <h3 class="ty-ev-title">Tyrone Town Council Regular Meeting</h3>
+            <p class="ty-ev-location">
+              <i data-lucide="map-pin" style="width:12px;height:12px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+              Tyrone Town Hall · 6:00 PM
+            </p>
+          </div>
+          <a href="#" class="ty-ev-btn">
+            Learn More
+            <i data-lucide="chevron-right" style="width:13px;height:13px;"></i>
+          </a>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="ty-ev-card fade-up" style="transition-delay:0.16s">
+          <div class="ty-ev-date">
+            <span class="ty-ev-month">Jul</span>
+            <span class="ty-ev-day">19</span>
+            <span class="ty-ev-year">2025</span>
+          </div>
+          <div class="ty-ev-divider"></div>
+          <div class="ty-ev-body">
+            <p class="ty-ev-tag">Arts &amp; Culture</p>
+            <h3 class="ty-ev-title">The Legacy Theatre Summer Production</h3>
+            <p class="ty-ev-location">
+              <i data-lucide="map-pin" style="width:12px;height:12px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+              The Legacy Theatre · 7:30 PM
+            </p>
+          </div>
+          <a href="#" class="ty-ev-btn">
+            Learn More
+            <i data-lucide="chevron-right" style="width:13px;height:13px;"></i>
+          </a>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="ty-ev-card fade-up" style="transition-delay:0.24s">
+          <div class="ty-ev-date">
+            <span class="ty-ev-month">Aug</span>
+            <span class="ty-ev-day">02</span>
+            <span class="ty-ev-year">2025</span>
+          </div>
+          <div class="ty-ev-divider"></div>
+          <div class="ty-ev-body">
+            <p class="ty-ev-tag">Parks &amp; Rec</p>
+            <h3 class="ty-ev-title">Shamrock Park Community Family Day</h3>
+            <p class="ty-ev-location">
+              <i data-lucide="map-pin" style="width:12px;height:12px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+              Shamrock Park · 10:00 AM
+            </p>
+          </div>
+          <a href="#" class="ty-ev-btn">
+            Learn More
+            <i data-lucide="chevron-right" style="width:13px;height:13px;"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
 
   <!-- ════════════════════════════════════════════
@@ -1344,7 +1738,14 @@
     window.addEventListener('load', () => {
       document.querySelectorAll('#hero .fade-up').forEach(el => el.classList.add('visible'));
     });
+
+    // ── Init Lucide icons ─────────────────────────────────────
+    lucide.createIcons();
   </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"
+          onload="lucide.createIcons()"></script>
 
 </body>
 </html>
